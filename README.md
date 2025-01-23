@@ -31,5 +31,4 @@ bash npm start
 ## 7. Publish to GitHub:
 Create a GitHub repository and push the code. 
 
-GitHub Repository
-You can find the code in the GitHub repository:
+
