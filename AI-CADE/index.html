@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Code Analyzer</title>
+</head>
+<body>
+  <textarea id="codeInput" placeholder="Paste your code here"></textarea>
+  <select id="languageSelect">
+    <option value="JavaScript">JavaScript</option>
+    <option value="Python">Python</option>
+    <!-- Add more languages as needed -->
+  </select>
+  <button onclick="analyzeCode()">Analyze Code</button>
+
+  <div id="results"></div>
+
+</body>
+</html>
+
+  <script>
+  //#######################4) Analyse Code
+
+    function analyzeCode() {
+    const code = document.getElementById('codeInput').value;
+    const language = document.getElementById('languageSelect').value;
+
+    fetch('/api/test-code', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code, language })
+    })
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('results').innerHTML = `
+        <h3>Test Cases:</h3>
+        <ul>${data.testCases.map(testCase => `<li>${testCase}</li>`).join('')}</ul>
+        <h3>Suggestions:</h3>
+        <p>${data.suggestions}</p>
+      `;
+    })
+    .catch(error => console.error('Error:', error));
+  }
+
+
+  //####################5)Front-end error Handling
+  function analyzeCode() {
+    const code = document.getElementById('codeInput').value;
+    const language = document.getElementById('languageSelect').value;
+
+    fetch('/api/test-code', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code, language })
+    })
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('results').innerHTML = `
+        <h3>Test Cases:</h3>
+        <ul>${data.testCases.map(testCase => `<li>${testCase}</li>`).join('')}</ul>
+        <h3>Suggestions:</h3>
+        <p>${data.suggestions}</p>
+      `;
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Unable to generate tests. Please try again.');
+    });
+  }
+
+
+</script>
+
